@@ -1,4 +1,10 @@
 def generate_permutations(nums):
+    """
+    In this code, backtrack is the main recursive function.
+    The key is the line current_permutation.pop(),
+    which is the backtracking step. After exploring all permutations that start with 1,
+    it removes 1 so the loop can continue and explore permutations starting with 2, and so on.
+    """
     result = []
     def backtrack(current_permutation, remaining_nums):
         # Base case: if the permutation is complete, add it to the result
