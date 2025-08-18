@@ -26,6 +26,7 @@ class Solution:
     A pathetic attempt to generate parentheses combinations with
     no regard for the actual problem requirements or
     any tact for algorithmic efficiency or technique.
+    Yes, I am a very hard critique of my own code & skills.
     """
     def generateParenthesis(self, n: int) -> List[str]:
         output = []
@@ -43,6 +44,7 @@ class Solution:
                     output.append(old+'(')
         
         return output
+
 
 class Solution1:
     """
@@ -71,5 +73,12 @@ class Solution1:
 
 if __name__ == "__main__":
     n = 3
-    solution = Solution()
-    print(solution.generateParenthesis(n))
+    solution = Solution1()
+    solutionSet = set(["((()))","(()())","(())()","()(())","()()()"])
+    solution1 = set(solution.generateParenthesis(n))
+    print(solution1)
+
+    if solution1 == solutionSet:
+        print("Solution1 is correct.")
+    else:
+        print("Solution1 is incorrect.")
