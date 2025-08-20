@@ -71,6 +71,40 @@ class Solution1:
         backtrack(0, 0)
         return res
 
+
+class Solution2:
+    """
+    Fully original solution from scratch.
+    Has 2 flaws in efficiency -
+        1. It generates all combinations of parentheses without checking if they are valid and needs result.count() to check validity.
+        2. It uses a set to store results, which is not necessary and adds overhead.
+    However, it does generate all valid combinations of parentheses.
+    """
+    def generateParenthesis(self, n: int) -> List[str]:
+        # add 2 varieties of this
+        def add_2_new_variations(results, n):
+            results_new = set()
+            for result in results:
+                opens = result.count('(')
+                closes = result.count(')')
+                if (opens < n):
+                    v1 = result + '('
+                    results_new.add(v1)
+
+                if closes < n and closes < opens:
+                    v2 = result + ')'
+                    results_new.add(v2)
+
+            return results_new
+
+        results = set([''])
+
+        while len(list(results)[0]) < 2*n:
+            results = add_2_new_variations(results, n)
+
+        return list(results)
+
+
 if __name__ == "__main__":
     n = 3
     solution = Solution1()
