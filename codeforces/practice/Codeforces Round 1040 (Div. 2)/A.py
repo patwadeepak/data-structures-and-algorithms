@@ -49,47 +49,54 @@ the end. Max Score 6 by this way
 """
 
 from typing import List
-from collections import defaultdict
+from collections import Counter
 
-def solve(arr: List[int], n: int) -> None:
-    num_set = set(arr)
-    # find the missing non negative integer first
+
+def get_freq_map(arr):
+    return Counter(arr)
+
+
+def get_missing_num(counter):
     missing_num = None
     for num in range(51):
-        if num in num_set:
-            continue
-        else:
+        if counter[num] == 0:
             missing_num = num
             break
+    return missing_num
+
+def sum_of_all_bigger_nums(counter, missing_num):
+    score = 0
+    for key in counter.keys():
+        if key > missing_num:
+            count = counter.pop(key)
+            score += count*key
+    return score, counter
+
+
+def calculate_score(freq_map):
+    # base case, if all values in freq_map are zero then return 0 score.
+    non_zero_found = False
+    for key in freq_map.keys():
+        if freq_map[key] > 0:
+            non_zero_found = True
+            break
     
-    # now add all numbers bigger than that using sum operation in one go
-    f = defaultdict(int)
-    sum = 0
-    for num in arr:
-        if num > missing_num:
-            sum += num
-            num_set.discard(num)
-        else:
-            # calculate frequency of all the numbers less than the missing minimum number
-            f[num] += 1
+    if not non_zero_found:
+        return 0
 
-    # now lets add this sum to score
-    score = sum
+    missing_num = get_missing_num(freq_map)
 
-    # now we will try to get as many instances of mex as possible
-    # to do this we need to have all the numbers till
-    min_freq = min(*f.values())
+    score, freq_map = sum_of_all_bigger_nums(freq_map, missing_num)
 
-    # (( m*(m+1)/2 ) + missing_num ) * min_freq
+    return score + calculate_score(freq_map) # this is not covering the strategy fully yet.
 
-    m = missing_num - 1
 
-    score_part_2 = ( (m * (m + 1)/2) + missing_num ) * min_freq
+def solve(arr: List[int], n: int) -> None:
+    freq_map = get_freq_map(arr)
+    
+    score = calculate_score(freq_map)
 
-    if len(f.values()) == 0 or all(f.values()) == False:
-        return score + score_part_2
-    else:
-        return score + score_part_2 + solve() # complete this later...
+    print(score)
 
 
 if __name__ == '__main__':
