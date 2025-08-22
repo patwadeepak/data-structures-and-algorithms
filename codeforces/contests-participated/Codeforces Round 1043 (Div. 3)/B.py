@@ -5,7 +5,6 @@ def solve(n):
 
     divisor = 1+(10**k)
 
-    x = 0.1    
     values = []
     while divisor < n:
         if n % divisor == 0:
