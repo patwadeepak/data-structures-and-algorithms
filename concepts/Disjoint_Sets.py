@@ -32,11 +32,13 @@ class Solution:
 
             elif parent[v] == -1:
                 parent[v] = u
-                parent[u] = parent[u] - 1
+                root_u = self.find_root(parent, u)
+                parent[root_u] = parent[root_u] - 1
             
             elif parent[u] == -1:
                 parent[u] = v
-                parent[v] = parent[v] - 1
+                root_v = self.find_root(parent, v)
+                parent[root_v] = parent[root_v] - 1
 
             else:
                 root_u = self.find_root(parent, u)
@@ -60,15 +62,27 @@ class Solution:
 # driver code
 if __name__ == '__main__':
 
-    # Has cycle
-    edges = [[0, 1], [0, 2], [1, 2], [2, 3]]
-    V, E = 4, 4
+    # # Has cycle
+    # edges = [[0, 1], [0, 2], [1, 2], [2, 3]]
+    # V, E = 4, 4
 
     # does not have cycle
     # edges = [[0, 1], [1, 2], [2, 3]]
     # V, E = 4, 3
 
+    V, E = 6, 6
+    edges = [
+        [0, 1],
+        [1, 2],
+        [1, 3],
+        [2, 4],
+        [3, 4],
+        [4, 5],
+    ]
+
     s = Solution()
     # V, E, adj = s.scan()
     result = s.isCycle(V, edges)
     print('Cycle was', 'not' if not result else '\b','detected in the Graph')
+
+# Passed all test cases now. Hurray ! :). I will be a red coder soon.
