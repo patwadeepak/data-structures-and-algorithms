@@ -3,7 +3,6 @@
 from typing import List
 from collections import Counter
 
-
 def get_freq_map(arr):
     return Counter(arr)
 
