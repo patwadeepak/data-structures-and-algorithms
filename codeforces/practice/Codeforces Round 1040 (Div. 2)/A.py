@@ -1,53 +1,5 @@
 # A. Submission is All You Need
 
-"""
-S = {0, 1, 1, 3}
-
------- Strategy 1 -------------
-S' = {3}
-
-then -
-score = 0
-do -> score += sum(S')
-score = 3
-do -> S - S' = {0, 1, 1}
-
-S' = {0, 1, 1}
-mex(S') = 2
-
-score += 2
-score = 5
-
-the end. Max Score 5 by this way
-
-
------- Strategy 2 -------------
-S' = {3}
-
-then -
-score = 0
-do -> score += sum(S')
-score = 3
-do -> S - S' = {0, 1, 1}
-
-S' = {0, 1}
-mex(S') = 2
-
-score += 2
-score = 5
-
-S = {1}
-S' = {1}
-sum(S') = 1 
-score += 1
-score = 6
-
-S = {}
-
-the end. Max Score 6 by this way
-
-"""
-
 from typing import List
 from collections import Counter
 
