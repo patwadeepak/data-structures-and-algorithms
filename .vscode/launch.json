@@ -9,6 +9,13 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
+            "args": [
+                "<",
+                "${fileDirname}/${fileBasenameNoExtension}.in",
+                ">",
+                "${fileDirname}/${fileBasenameNoExtension}.outputSolved",
+            ],
+            "postDebugTask": "Compare-2-files",
             "console": "integratedTerminal",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
