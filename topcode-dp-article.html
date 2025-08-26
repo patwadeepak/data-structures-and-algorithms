@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Programming: From Novice to Advanced</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: #ffffff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #34495e;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .date {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            font-size: 1.8em;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h3 {
+            color: #8e44ad;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+        
+        strong {
+            color: #e74c3c;
+        }
+        
+        em {
+            color: #9b59b6;
+        }
+        
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 20px 0;
+        }
+        
+        code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tr:hover {
+            background: #e8f4fd;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+            margin-bottom: 16px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .example {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .problem {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .forum-link {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dynamic Programming: From Novice to Advanced</h1>
+        <div class="date">October 31, 2018</div>
+        
+        <div class="forum-link">
+            <a href="http://apps.topcoder.com/forums/?module=ThreadList&forumID=505844">Discuss this article in the forums</a>
+        </div>
+        
+        <p>An important part of given problems can be solved with the help of dynamic programming (<strong>DP</strong> for short). Being able to tackle problems of this type would greatly increase your skill. I will try to help you in understanding how to solve problems using DP. The article is based on examples, because a raw theory is very hard to understand.</p>
+        
+        <div class="note">
+            <strong>Note</strong>: If you're bored reading one section and you already know what's being discussed in it – skip it and go to the next one.
+        </div>
+
+        <h2>Introduction (Beginner)</h2>
+        
+        <p><em><strong>What is a dynamic programming, how can it be described?</strong></em></p>
+        
+        <p>A <strong>DP</strong> is an algorithmic technique which is usually based on a recurrent formula and one (or some) starting states. A sub-solution of the problem is constructed from previously found ones. DP solutions have a polynomial complexity which assures a much faster running time than other techniques like backtracking, brute-force etc.</p>
+        
+        <p>Now let's see the base of DP with the help of an example:</p>
+        
+        <div class="problem">
+            <p>Given a list of N coins, their values (<strong>V₁</strong>, <strong>V₂</strong>, … , <strong>Vₙ</strong>), and the total sum <strong>S</strong>. Find the minimum number of coins the sum of which is <strong>S</strong> (we can use as many coins of one type as we want), or report that it's not possible to select coins in such a way that they sum up to <strong>S</strong>.</p>
+        </div>
+        
+        <p>Now let's start constructing a DP solution:</p>
+        
+        <p>First of all we need to find a state for which an optimal solution is found and with the help of which we can find the optimal solution for the next state.</p>
+        
+        <h3>What does a "state" stand for?</h3>
+        
+        <p>It's a way to describe a situation, a sub-solution for the problem. For example a state would be the solution for sum <strong>i</strong>, where <strong>i≤S</strong>. A smaller state than state <strong>i</strong> would be the solution for any sum <strong>j</strong>, where <strong>j < i</strong>. For finding a <strong>state i</strong>, we need to first find all smaller states <strong>j (j < i)</strong>. Having found the minimum number of coins which sum up to <strong>i</strong>, we can easily find the next state – the solution for <strong>i+1</strong>.</p>
+        
+        <h3>How can we find it?</h3>
+        
+        <p>It is simple – for each coin <strong>j, Vⱼ≤i</strong>, look at the minimum number of coins found for the <strong>i-Vⱼ</strong> sum (we have already found it previously). Let this number be <strong>m</strong>. If <strong>m+1</strong> is less than the minimum number of coins already found for current sum <strong>i</strong>, then we write the new result for it.</p>
+        
+        <div class="example">
+            <p><strong>For a better understanding let's take this example:</strong></p>
+            <p>Given coins with values 1, 3, and 5.</p>
+            <p>And the sum <strong>S</strong> is set to be 11.</p>
+        </div>
+        
+        <p>First of all we mark that for state 0 (sum 0) we have found a solution with a minimum number of 0 coins. We then go to sum 1. First, we mark that we haven't yet found a solution for this one (a value of Infinity would be fine). Then we see that only coin 1 is less than or equal to the current sum. Analyzing it, we see that for sum 1-<strong>V₁</strong>= 0 we have a solution with 0 coins. Because we add one coin to this solution, we'll have a solution with 1 coin for sum 1. It's the only solution yet found for this sum. We write (save) it.</p>
+        
+        <p>Then we proceed to the next state – <strong>sum 2</strong>. We again see that the only coin which is less or equal to this sum is the first coin, having a value of 1. The optimal solution found for sum (2-1) = 1 is coin 1. This coin 1 plus the first coin will sum up to 2, and thus make a sum of 2 with the help of only 2 coins. This is the best and only solution for sum 2.</p>
+        
+        <p>Now we proceed to sum 3. We now have 2 coins which are to be analyzed – first and second one, having values of 1 and 3. Let's see the first one. There exists a solution for sum 2 (3 – 1) and therefore we can construct from it a solution for sum 3 by adding the first coin to it. Because the best solution for sum 2 that we found has 2 coins, the new solution for sum 3 will have 3 coins.</p>
+        
+        <p>Now let's take the second coin with value equal to 3. The sum for which this coin needs to be added to make 3, is 0. We know that sum 0 is made up of 0 coins. Thus we can make a sum of 3 with only one coin – 3. We see that it's better than the previous found solution for sum 3, which was composed of 3 coins. We update it and mark it as having only 1 coin. The same we do for sum 4, and get a solution of 2 coins – 1+3. And so on.</p>
+        
+        <h3>Pseudocode:</h3>
+        
+        <pre>
+Set Min[i] equal to Infinity
+for all of i
+Min[0] = 0
+
+For i = 1 to S
+    For j = 0 to N - 1
+        If(Vj <= i AND Min[i - Vj] + 1 < Min[i])
+            Then Min[i] = Min[i - Vj] + 1
+
+Output Min[S]
+        </pre>
+        
+        <p>Here are the solutions found for all sums:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Sum</th>
+                    <th>Min. nr. of coins</th>
+                    <th>Coin value (Previous Smaller Sum)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>0</td><td>0</td><td>-</td></tr>
+                <tr><td>1</td><td>1</td><td>1 (0)</td></tr>
+                <tr><td>2</td><td>2</td><td>1 (1)</td></tr>
+                <tr><td>3</td><td>1</td><td>3 (0)</td></tr>
+                <tr><td>4</td><td>2</td><td>1 (3)</td></tr>
+                <tr><td>5</td><td>1</td><td>5 (0)</td></tr>
+                <tr><td>6</td><td>2</td><td>3 (3)</td></tr>
+                <tr><td>7</td><td>3</td><td>1 (6)</td></tr>
+                <tr><td>8</td><td>2</td><td>3 (5)</td></tr>
+                <tr><td>9</td><td>3</td><td>1 (8)</td></tr>
+                <tr><td>10</td><td>2</td><td>5 (5)</td></tr>
+                <tr><td>11</td><td>3</td><td>1 (10)</td></tr>
+            </tbody>
+        </table>
+        
+        <p>As a result we have found a solution of 3 coins which sum up to 11.</p>
+        
+        <p>Additionally, by tracking data about how we got to a certain sum from a previous one, we can find what coins were used in building it. For example: to sum 11 we got by adding the coin with value 1 to a sum of 10. To sum 10 we got from 5. To 5 – from 0. This way we find the coins used: 1, 5 and 5.</p>
+        
+        <p>Having understood the basic way a <strong>DP</strong> is used, we may now see a slightly different approach to it. It involves the change (update) of best solution yet found for a sum i, whenever a better solution for this sum was found. In this case the states aren't calculated consecutively.</p>
+        
+        <p>Let's consider the problem above. Start with having a solution of 0 coins for sum 0. Now let's try to add first coin (with value 1) to all sums already found. If the resulting sum <strong>t</strong> will be composed of fewer coins than the one previously found – we'll update the solution for it. Then we do the same thing for the second coin, third coin, and so on for the rest of them.</p>
+        
+        <p>For example, we first add coin 1 to sum 0 and get sum 1. Because we haven't yet found a possible way to make a sum of 1 – this is the best solution yet found, and we mark <strong>S[1]=1</strong>. By adding the same coin to sum 1, we'll get sum 2, thus making <strong>S[2]=2</strong>. And so on for the first coin.</p>
+        
+        <p>After the first coin is processed, take coin 2 (having a value of 3) and consecutively try to add it to each of the sums already found. Adding it to 0, a sum 3 made up of 1 coin will result. Till now, <strong>S[3]</strong> has been equal to 3, thus the new solution is better than the previously found one. We update it and mark <strong>S[3]=1</strong>. After adding the same coin to sum 1, we'll get a sum 4 composed of 2 coins. Previously we found a sum of 4 composed of 4 coins; having now found a better solution we update <strong>S[4]</strong> to 2. The same thing is done for next sums – each time a better solution is found, the results are updated.</p>
+
+        <h2>Elementary</h2>
+        
+        <p>To this point, very simple examples have been discussed. Now let's see how to find a way for passing from one state to another, for harder problems. For that we will introduce a new term called recurrent relation, which makes a connection between a lower and a greater state.</p>
+        
+        <p>Let's see how it works:</p>
+        
+        <div class="problem">
+            <p>Given a sequence of N numbers – <strong>A[1]</strong>, <strong>A[2]</strong>, …, <strong>A[N]</strong>. Find the length of the longest non-decreasing sequence.</p>
+        </div>
+        
+        <p>As described above we must first find how to define a "state" which represents a sub-problem and thus we have to find a solution for it. Note that in most cases the states rely on lower states and are independent from greater states.</p>
+        
+        <p>Let's define a state <strong>i</strong> as being the longest non-decreasing sequence which has its last number <strong>A[i]</strong>. This state carries only data about the length of this sequence. Note that for <strong>i < j</strong> the state <strong>i</strong> is independent from <strong>j</strong>, i.e. doesn't change when we calculate state <strong>j</strong>.</p>
+        
+        <p>Let's see now how these states are connected to each other. Having found the solutions for all states lower than <strong>i</strong>, we may now look for state <strong>i</strong>. At first we initialize it with a solution of 1, which consists only of the <strong>i-th</strong> number itself.</p>
+        
+        <p>Now for each <strong>j < i</strong> let's see if it's possible to pass from it to state i. This is possible only when <strong>A[j]≤A[i]</strong>, thus keeping (assuring) the sequence non-decreasing. So if <strong>S[j]</strong> (the solution found for state <strong>j</strong>) + <strong>1</strong> (number <strong>A[i]</strong> added to this sequence which ends with number <strong>A[j]</strong>) is better than a solution found for <strong>i</strong> (ie. <strong>S[j]+1 > S[i]</strong>), we make <strong>S[i]=S[j]+1</strong>. This way we consecutively find the best solutions for each <strong>i</strong>, until last state N.</p>
+        
+        <p>Let's see what happens for a randomly generated sequence: 5, 3, 4, 8, 6, 7:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>I</th>
+                    <th>Length of Longest non-decreasing sequence (first I numbers)</th>
+                    <th>The last sequence i from which we "arrived" to this one</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>1</td><td>1 (first number itself)</td></tr>
+                <tr><td>2</td><td>1</td><td>2 (second number itself)</td></tr>
+                <tr><td>3</td><td>2</td><td>2</td></tr>
+                <tr><td>4</td><td>3</td><td>3</td></tr>
+                <tr><td>5</td><td>3</td><td>3</td></tr>
+                <tr><td>6</td><td>4</td><td>5</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="problem">
+            <p><strong>Practice problem:</strong></p>
+            <p>Given an undirected graph <strong>G</strong> having <strong>N</strong> (1 < N <= 1000) vertices and positive weights. Find the shortest path from vertex 1 to vertex N, or state that such path doesn't exist.</p>
+            <p><strong>Hint:</strong> At each step, among the vertices which weren't yet checked and for which a path from vertex 1 was found, take the one which has the shortest path, from vertex 1 to it, yet found.</p>
+        </div>
+        
+        <p>Try to solve the following problems from Topcoder competitions:</p>
+        
+        <ul>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4493&pm=1259">ZigZag</a> – 2003 TCCC Semifinals 3</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5009&pm=2402">BadNeighbors</a> – 2004 TCCC Round 4</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5006&pm=1918">FlowerGarden</a> – 2004 TCCC Round 1</li>
+        </ul>
+
+        <h2>Intermediate</h2>
+        
+        <p>Let's see now how to tackle bi-dimensional DP problems.</p>
+        
+        <div class="problem">
+            <p>A table composed of <strong>N x M</strong> cells, each having a certain quantity of apples, is given. You start from the upper-left corner. At each step you can go down or right one cell. Find the maximum number of apples you can collect.</p>
+        </div>
+        
+        <p>This problem is solved in the same way as other DP problems; there is almost no difference.</p>
+        
+        <p>First of all we have to find a state. The first thing that must be observed is that there are at most 2 ways we can come to a cell – from the left (if it's not situated on the first column) and from the top (if it's not situated on the most upper row). Thus to find the best solution for that cell, we have to have already found the best solutions for all of the cells from which we can arrive to the current cell.</p>
+        
+        <p>From above, a recurrent relation can be easily obtained:</p>
+        
+        <p><strong>S[i][j] = A[i][j] + max(S[i-1][j], if i > 0 ; S[i][j-1], if j > 0)</strong></p>
+        
+        <p>(where <strong>i</strong> represents the row and <strong>j</strong> the column of the table, its left-upper corner having coordinates {0,0} ; and <strong>A[i][j]</strong> being the number of apples situated in cell <strong>i,j</strong>).</p>
+        
+        <p><strong>S[i][j]</strong> must be calculated by going first from left to right in each row and process the rows from top to bottom, or by going first from top to bottom in each column and process the columns from left to right.</p>
+        
+        <h3>Pseudocode:</h3>
+        
+        <pre>
+For i = 0 to N - 1
+    For j = 0 to M - 1
+        S[i][j] = A[i][j] +
+            max(S[i][j - 1],
+                if j > 0; S[i - 1][j],
+                if i > 0; 0)
+
+Output S[n - 1][m - 1]
+        </pre>
+        
+        <p>Here are a few problems, from Topcoder Competitions, for practicing:</p>
+        
+        <ul>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4709&pm=1889">AvoidRoads</a> – 2003 TCO Semifinals 4</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4482&pm=1592">ChessMetric</a> – 2003 TCCC Round 4</li>
+        </ul>
+
+        <h2>Upper-Intermediate</h2>
+        
+        <p>This section will discuss about dealing DP problems which have an additional condition besides the values that must be calculated.</p>
+        
+        <p>As a good example would serve the following problem:</p>
+        
+        <div class="problem">
+            <p>Given an undirected graph <strong>G</strong> having positive weights and <strong>N</strong> vertices.</p>
+            
+            <p>You start with having a sum of <strong>M</strong> money. For passing through a vertex <strong>i</strong>, you must pay <strong>S[i]</strong> money. If you don't have enough money – you can't pass through that vertex. Find the shortest path from vertex 1 to vertex N, respecting the above conditions; or state that such path doesn't exist. If there exist more than one path having the same length, then output the cheapest one.</p>
+            
+            <p><strong>Restrictions:</strong> 1 < N <= 100 ; 0 <= M <= 100 ; for each i, 0 <= S[i] <= 100.</p>
+        </div>
+        
+        <p>As we can see, this is the same as the classical Dijkstra problem (finding the shortest path between two vertices), with the exception that it has a condition. In the classical Dijkstra problem we would have used a uni-dimensional array <strong>Min[i]</strong>, which marks the length of the shortest path found to vertex <strong>i</strong>. However in this problem we should also keep information about the money we have. Thus it would be reasonable to extend the array to something like <strong>Min[i][j]</strong>, which represents the length of the shortest path found to vertex <strong>i</strong>, with <strong>j</strong> money being left.</p>
+        
+        <p>In this way the problem is reduced to the original path-finding algorithm. At each step we find the unmarked state (i,j) for which the shortest path was found. We mark it as visited (not to use it later), and for each of its neighbors we look if the shortest path to it may be improved. If so – then update it. We repeat this step until there will remain no unmarked state to which a path was found. The solution will be represented by <strong>Min[N-1][j]</strong> having the least value (and the greatest <strong>j</strong> possible among the states having the same value, i.e. the shortest paths to which has the same length).</p>
+        
+        <h3>Pseudocode:</h3>
+        
+        <pre>
+Set states(i, j) as unvisited
+for all(i, j)
+Set Min[i][j] to Infinity
+for all(i, j)
+
+Min[0][M] = 0
+
+While(TRUE)
+
+    Among all unvisited states(i, j) find the one
+    for which Min[i][j]
+    is the smallest. Let this state found be(k, l).
+
+    If there wasn't found any state (k,l) for which Min[k][l] is
+    less than Infinity - exit While loop.
+
+    Mark state(k, l) as visited
+
+    For All Neighbors p of Vertex k.
+        If(l - S[p] >= 0 AND Min[p][l - S[p]] > Min[k][l] + Dist[k][p])
+            Then Min[p][l - S[p]] = Min[k][l] + Dist[k][p]
+            i.e.
+            If for state(i, j) there are enough money left
+            for going to vertex p(l - S[p] represents the money that will remain after passing to vertex p), and the
+            shortest path found for state(p, l - S[p]) is bigger
+            than[the shortest path found for state(k, l)] + [distance from vertex k to vertex p)],
+            then set the shortest path for state(i, j) to be equal to this sum.
+    End For
+
+End While
+
+Find the smallest number among Min[N - 1][j](
+for all j, 0 <= j <= M);
+if there are more than one such states, then take the one with greater
+j.If there are no states(N - 1, j) with value less than Infinity - then
+such a path doesn't exist.
+        </pre>
+        
+        <p>Here are a few Topcoder problems for practicing:</p>
+        
+        <ul>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4705&pm=1166">Jewelry</a> – 2003 TCO Online Round 4</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4555&pm=1215">StripePainter</a> – SRM 150 Div 1</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5072&pm=2829">QuickSums</a> – SRM 197 Div 2</li>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4630&pm=1861">ShortPalindromes</a> – SRM 165 Div 2</li>
+        </ul>
+
+        <h2>Advanced</h2>
+        
+        <p>The following problems will need some good observations in order to reduce them to a dynamic solution.</p>
+        
+        <div class="problem">
+            <p><strong>Problem <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5854&pm=2940">StarAdventure</a> – SRM 208 Div 1:</strong></p>
+            
+            <p>Given a matrix with <strong>M</strong> rows and <strong>N</strong> columns (<strong>N x M</strong>). In each cell there's a number of apples. You start from the upper-left corner of the matrix. You can go down or right one cell. You need to arrive to the bottom-right corner. Then you need to go back to the upper-left cell by going each step one cell left or up. Having arrived at this upper-left cell, you need to go again back to the bottom-right cell. Find the maximum number of apples you can collect.</p>
+            
+            <p>When you pass through a cell – you collect all the apples left there.</p>
+            
+            <p><strong>Restrictions:</strong> 1 < <strong>N</strong>, <strong>M</strong> <= 50 ; each cell contains between 0 and 1000 apples inclusive.</p>
+        </div>
+        
+        <p>First of all we observe that this problem resembles to the classical one (described in Section 3 of this article), in which you need to go only once from the top-left cell to the bottom-right one, collecting the maximum possible number of apples. It would be better to try to reduce the problem to this one.</p>
+        
+        <p>Take a good look into the statement of the problem – what can be reduced or modified in a certain way to make it possible to solve using DP? First observation is that we can consider the second path (going from bottom-right cell to the top-left cell) as a path which goes from top-left to bottom-right cell. It makes no difference, because a path passed from bottom to top, may be passed from top to bottom just in reverse order. In this way we get three paths going from top to bottom. This somehow decreases the difficulty of the problem.</p>
+        
+        <p>We can consider these 3 paths as left, middle and right. When 2 paths intersect (like in the figure below) we may consider them as in the following picture, without affecting the result:</p>
+        
+        <p>This way we'll get 3 paths, which we may consider as being one left, one middle and the other – right. More than that, we may see that for getting an optimal results they must not intersect (except in the leftmost upper corner and rightmost bottom corner). So for each row <strong>y</strong> (except first and last), the <strong>x</strong> coordinates of the lines (<strong>x1[y]</strong>, <strong>x2[y]</strong> and respectively <strong>x3[y]</strong>) will be : <strong>x1[y]</strong> < <strong>x2[y]</strong> < <strong>x3[y]</strong>.</p>
+
+        <p>Having done that – the DP solution now becomes much clearer. Let's consider the row y. Now suppose that for any configuration of <strong>x1[y-1]</strong>, <strong>x2[y-1]</strong> and <strong>x3[y-1]</strong> we have already found the paths which collect the maximum number of apples. From them we can find the optimal solution for row <strong>y</strong>. We now have to find only the way for passing from one row to the next one.</p>
+
+        <p>Let <strong>Max[i][j][k]</strong> represent the maximum number of apples collected till row <strong>y-1</strong> inclusive, with three paths finishing at column <strong>i</strong>, <strong>j</strong>, and respectively <strong>k</strong>. For the next row <strong>y</strong>, add to each <strong>Max[i][j][k]</strong> (obtained previously) the number of apples situated in cells (<strong>y,i</strong>) , (<strong>y,j</strong>) and (<strong>y,k</strong>). Thus we move down at each step.</p>
+
+        <p>After we made such a move, we must consider that the paths may move in a row to the right. For keeping the paths out of an intersection, we must first consider the move to the right of the left path, after this of the middle path, and then of the right path. For a better understanding think about the move to the right of the left path – take every possible pair of, <strong>k</strong> (where <strong>j<k</strong>), and for each i (1 i<j) consider the move from position (<strong>i-1,j,k</strong>) to position (<strong>i,j,k</strong>). Having done this for the left path, start processing the middle one, which is done similarly; and then process the right path.</p>
+
+        <p>TC problems for practicing:</p>
+
+        <ul>
+            <li><a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4710&pm=1996">MiniPaint</a> – SRM 178 Div 1</li>
+        </ul>
+
+        <div class="note">
+            <p><strong>Additional Note:</strong></p>
+            <p>When have read the description of a problem and started to solve it, first look at its restrictions. If a polynomial-time algorithm should be developed, then it's possible that the solution may be of DP type. In this case try to see if there exist such states (sub-solutions) with the help of which the next states (sub-solutions) may be found. Having found that – think about how to pass from one state to another. If it seems to be a DP problem, but you can't define such states, then try to reduce the problem to another one (like in the example above, from Section 5).</p>
+        </div>
+
+        <div class="problem">
+            <p><strong>Mentioned in this writeup:</strong></p>
+            <p>TCCC '03 Semifinals 3 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4493&pm=1259">ZigZag</a><br/>
+            TCCC '04 Round 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5009&pm=2402">BadNeighbors</a><br/>
+            TCCC '04 Round 1 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5006&pm=1918">FlowerGarden</a><br/>
+            TCO '03 Semifinals 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4709&pm=1889">AvoidRoads</a><br/>
+            TCCC '03 Round 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4482&pm=1592">ChessMetric</a><br/>
+            TCO '03 Round 4 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4705&pm=1166">Jewelry</a><br/>
+            SRM 150 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4555&pm=1215">StripePainter</a><br/>
+            SRM 197 Div II Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5072&pm=2829">QuickSums</a><br/>
+            SRM 165 Div II Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4630&pm=1861">ShortPalindromes</a><br/>
+            SRM 208 Div I Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=5854&pm=2940">StarAdventure</a><br/>
+            SRM 178 Div I Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&rd=4710&pm=1996">MiniPaint</a></p>
+        </div>
