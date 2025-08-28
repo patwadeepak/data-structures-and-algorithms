@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug: Current File",
+            "name": "debug with file stdio",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
@@ -16,6 +16,16 @@
                 "${fileDirname}/${fileBasenameNoExtension}.outputSolved",
             ],
             "postDebugTask": "Compare-2-files",
+            "console": "integratedTerminal",
+            "env": {
+                "VIRTUAL_ENV": "${workspaceFolder}/.venv",
+            }
+        },
+        {
+            "name": "debug interactive",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
             "console": "integratedTerminal",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
