@@ -2,8 +2,9 @@ import sys
 import os
 
 # since non memoization or tabulation used this one keeps going on and never stops.
-# from subset_sum_recursion import Solution
-from subset_sum_memoization import Solution
+# from subset_sum_recursion import Solution # don't actually run this. only try on very very small dataset.
+# from subset_sum_memoization import Solution
+from subset_sum_tabulation import Solution
 
 # Change the current working directory to the script's directory
 script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
