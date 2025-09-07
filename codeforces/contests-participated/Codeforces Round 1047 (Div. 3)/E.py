@@ -34,3 +34,5 @@ if __name__ == '__main__':
         n, k = list(map(int, input().split(' ')))
         a = list(map(int, input().split(' ')))
         solve(n, k, a)
+
+"Not submitted. Not solved fully yet"
