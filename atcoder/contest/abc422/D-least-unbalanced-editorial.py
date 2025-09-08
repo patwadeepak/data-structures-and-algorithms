@@ -5,12 +5,7 @@ def main():
     This solution is reverse of the operations mentioned in the problem.
     This way works even when time complexity is 2^N because N < 20 in contraint.
     """
-    try:
-        # Get user input for N and K
-        n, k = map(int, input().split())
-    except ValueError:
-        print("Invalid input. Please enter two integers separated by a space.")
-        return
+    n, k = map(int, input().split())
 
     # Initialize the list with K
     ans = [k]
