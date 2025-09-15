@@ -17,4 +17,5 @@ if __name__ == '__main__':
 Not a solution
 Attempted when only 4 mins were left.
 Not attempted properly.
+Need to speed up to be able to solve all problems of the contest.
 """
