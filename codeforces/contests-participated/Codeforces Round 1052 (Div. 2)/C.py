@@ -31,6 +31,7 @@ if __name__ == '__main__':
         solve(s, n)
 
 """
+Solved After Contest.
 my very own solution.
 Looking at editorial's solution this looks better.
 But it seems that both have same complexity of O(n)
