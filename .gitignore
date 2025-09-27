@@ -1,3 +1,15 @@
 __pycache__
 .venv
 .DS_Store
+
+# ignore cpp stuff
+*.dSYM
+*.exe
+
+# CPH extension created files
+*.prob
+*.bin
+
+# ignore kattis-cli
+kattis-cli
+.kattisrc
