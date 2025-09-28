@@ -54,3 +54,9 @@ if __name__ == '__main__':
         s = input()
         a  = list(map(int, input().split()))
         solve(n, m, s, a)
+
+"""
+Only God knows what was I thinking when I tried above
+ungodly ugly implementation.
+I would never repeat this stupidity again.
+"""
