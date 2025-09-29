@@ -7,6 +7,7 @@ __pycache__
 *.exe
 
 # CPH extension created files
+.cph
 *.prob
 *.bin
 

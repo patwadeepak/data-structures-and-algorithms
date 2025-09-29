@@ -4,5 +4,6 @@
     "C_Cpp.default.cStandard": "c17",
     "C_Cpp.default.intelliSenseMode": "macos-gcc-arm64",
     "C_Cpp.inlayHints.parameterNames.enabled": false,
-    "python.terminal.activateEnvironment": false
+    "python.terminal.activateEnvironment": false,
+    "C_Cpp.autoAddFileAssociations": false
 }
