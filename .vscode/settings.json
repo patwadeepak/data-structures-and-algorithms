@@ -1,9 +1,13 @@
 {
     "C_Cpp.autocompleteAddParentheses": true,
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.cStandard": "c17",
-    "C_Cpp.default.intelliSenseMode": "macos-gcc-arm64",
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.default.cStandard": "c23",
+    "C_Cpp.default.intelliSenseMode": "macos-clang-arm64",
     "C_Cpp.inlayHints.parameterNames.enabled": false,
     "python.terminal.activateEnvironment": false,
-    "C_Cpp.autoAddFileAssociations": false
+    "C_Cpp.autoAddFileAssociations": true,
+    "files.associations": {
+        "*.py ": "python",
+        "algorithm": "cpp"
+    }
 }

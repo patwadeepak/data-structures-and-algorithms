@@ -29,17 +29,22 @@
             }
         },
         {
-            "name": "C++: debug interactive",
-            "type": "cppdbg",
+            "name": "clang++: debug interactive",
+            "type": "lldb",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
             "args": [],
-            "stopAtEntry": false,
             "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
-            "preLaunchTask": "C/C++: g++-14 build active file"
+            "preLaunchTask": "clang++: build active file"
+        },
+        {
+            "name": "gcc: debug interactive",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "gcc: g++-15 build active file"
         }
     ]
 }
