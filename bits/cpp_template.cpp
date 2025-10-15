@@ -2,9 +2,11 @@
 using namespace std;
 
 typedef long long ll;
+#define endl "\n"
 
 void solve() {
-   return; 
+    
+    return; 
 }
 
 int main () {
