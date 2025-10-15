@@ -8,7 +8,7 @@ void solve() {
 }
 
 int main () {
-    int t; cin >> t;
+    ll t; cin >> t;
     while (t--) {
         solve();
         cout << '\n';
