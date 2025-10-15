@@ -11,7 +11,6 @@ int main () {
     ll t; cin >> t;
     while (t--) {
         solve();
-        cout << '\n';
     }
     return 0;
 }
