@@ -3,15 +3,15 @@ using namespace std;
 
 typedef long long ll;
 
-int solve() {
-   return 0; 
+void solve() {
+   return; 
 }
 
 int main () {
     int t; cin >> t;
     while (t--) {
-        int  ans = solve();
-        cout << ans << '\n';
+        solve();
+        cout << '\n';
     }
     return 0;
 }
