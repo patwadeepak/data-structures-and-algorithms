@@ -1,8 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
 #define endl "\n"
+#define FASTIO ios::sync_with_stdio(0);cin.tie(0)
+
+typedef long long ll;
 
 void solve() {
     ll n; cin >> n;
@@ -12,6 +14,7 @@ void solve() {
 }
 
 int main () {
+    FASTIO;
     ll t; cin >> t;
     while (t--) {
         solve();
