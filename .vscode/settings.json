@@ -9,5 +9,8 @@
     "files.associations": {
         "*.py ": "python",
         "algorithm": "cpp"
-    }
+    },
+    "cph.general.defaultLanguage": "cpp",
+    "cph.general.autoShowJudge": false,
+    "cph.general.menuChoices": "python cpp js"
 }
