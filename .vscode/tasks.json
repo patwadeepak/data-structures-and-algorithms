@@ -29,6 +29,29 @@
             ],
             "group": "build",
         },
+                {
+            "type": "cppbuild",
+            "label": "clang++: $TEMPDIR",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-std=c++23",
+                // "-O2", this optimization makes the program difficult to debug
+                "-Wall",
+                "-Wextra",
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${env:TMPDIR}/${fileBasenameNoExtension}.bin"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+        },
         {
             "type": "cppbuild",
             "label": "gcc: g++-15 build active file",

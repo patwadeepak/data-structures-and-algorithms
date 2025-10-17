@@ -2,7 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "py3: debug - file stdio",
+            "name": "clang++: i-TEMPDIR",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${env:TMPDIR}/${fileBasenameNoExtension}.bin",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "clang++: $TEMPDIR"
+        },
+        {
+            "name": "py3: i",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "env": {
+                "VIRTUAL_ENV": "${workspaceFolder}/.venv"
+            }
+        },
+        {
+            "name": "py3: f",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
@@ -13,16 +32,6 @@
                 "${fileDirname}/${fileBasenameNoExtension}.outputSolved"
             ],
             "postDebugTask": "Compare-2-files",
-            "console": "integratedTerminal",
-            "env": {
-                "VIRTUAL_ENV": "${workspaceFolder}/.venv"
-            }
-        },
-        {
-            "name": "py3: debug interactive",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${file}",
             "console": "integratedTerminal",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv"
