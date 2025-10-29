@@ -37,15 +37,15 @@
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv"
             }
         },
-        {
-            "name": "clang++: debug interactive",
-            "type": "lldb",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
-            "args": [],
-            "cwd": "${fileDirname}",
-            "preLaunchTask": "clang++: build active file"
-        },
+        // {
+        //     "name": "clang++: debug interactive",
+        //     "type": "lldb",
+        //     "request": "launch",
+        //     "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
+        //     "args": [],
+        //     "cwd": "${fileDirname}",
+        //     "preLaunchTask": "clang++: build active file"
+        // },
         {
             "name": "gcc: debug interactive",
             "type": "lldb",
