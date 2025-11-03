@@ -22,7 +22,8 @@ void solve() {
 
 int main () {
     FASTIO;
-    ll t; cin >> t;
+    ll t = 1;
+    cin >> t;
     while (t--) {
         solve();
     }
